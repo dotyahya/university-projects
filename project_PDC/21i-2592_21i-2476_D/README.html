@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="top-k-shortest-paths-with-openmpi-and-openmp">Top K Shortest Paths with OpenMPI and OpenMP</h1>
+<h2 id="compilation-and-execution-instructions">Compilation and Execution Instructions</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Windows Subsystem for Linux (WSL) installed and configured</li>
+<li>Docker installed on WSL</li>
+</ul>
+<h3 id="steps">Steps</h3>
+<ol>
+<li>
+<p>Open WSL.</p>
+</li>
+<li>
+<p>Navigate to the project directory:</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">cd</span> alpine-mpich/cluster/project
+</code></pre>
+</li>
+<li>
+<p>Start the Docker container with MPI environment:</p>
+<pre class=" language-bash"><code class="prism  language-bash">docker run --rm -it -v <span class="token variable"><span class="token variable">$(</span><span class="token function">pwd</span><span class="token variable">)</span></span>:/project nlknguyen/alpine-mpich
+</code></pre>
+</li>
+<li>
+<p>Compile your MPI C code using <code>mpicc</code>:</p>
+<pre class=" language-bash"><code class="prism  language-bash">mpicc -o <span class="token punctuation">[</span>obj<span class="token punctuation">]</span> <span class="token punctuation">[</span>filename.c<span class="token punctuation">]</span>
+</code></pre>
+<p>Replace <code>[obj]</code> with the desired output object file name and <code>[filename.c]</code> with the name of your MPI C source code file.</p>
+</li>
+<li>
+<p>Run the MPI executable using <code>mpirun</code> specifying the number of processes:</p>
+<pre class=" language-bash"><code class="prism  language-bash">mpirun -n <span class="token punctuation">[</span>num_processes<span class="token punctuation">]</span> ./<span class="token punctuation">[</span>obj<span class="token punctuation">]</span> <span class="token punctuation">[</span>name_of_csv_file<span class="token punctuation">]</span>
+</code></pre>
+<p>Replace <code>[num_processes]</code> with the desired number of processes, <code>[obj]</code> with the compiled object file name, and <code>[name_of_csv_file]</code> with the name of the CSV file your program will operate on.</p>
+</li>
+</ol>
+<p>Example:</p>
+<pre class=" language-bash"><code class="prism  language-bash">mpirun -n 4 ./my_mpi_program input.csv
+</code></pre>
+<h3 id="notes">Notes:</h3>
+<ul>
+<li>Ensure that your C source code file (<code>filename.c</code>) contains the main function and necessary MPI initialization (<code>MPI_Init</code>, <code>MPI_Finalize</code>).</li>
+<li>Verify that the input CSV file (<code>input_graph.csv</code>) is located in the same directory as your project files or provide the correct path.</li>
+<li>Adjust the number of MPI processes (<code>-n</code>) based on your system’s capabilities and the size of the input graph.</li>
+<li>After execution, the program will output the top K shortest paths based on the provided input graph.</li>
+</ul>
+</div>
+</body>
+
+</html>
